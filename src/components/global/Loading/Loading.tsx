@@ -13,6 +13,4 @@ const Loading: React.FC<Props> = props => {
   );
 };
 
-Loading.defaultProps = {};
-
 export default Loading;

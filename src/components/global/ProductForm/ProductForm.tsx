@@ -66,6 +66,4 @@ const ProductForm: React.FC<Props> = props => {
   );
 };
 
-ProductForm.defaultProps = {};
-
 export default ProductForm;

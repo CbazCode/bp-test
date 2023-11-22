@@ -44,6 +44,4 @@ const ProductDetail: React.FC<Props> = props => {
   );
 };
 
-ProductDetail.defaultProps = {};
-
 export default ProductDetail;

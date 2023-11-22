@@ -2,7 +2,7 @@ import { router } from "expo-router";
 
 import { DeleteActionModalProps as Props } from "./DeleteActionModal.types";
 import ConfirmActionModal from "components/global/ConfirmActionModal/ConfirmActionModal";
-import { useDeleteFinancialProduct } from "services/products/products.services.hooks";
+import { useDeleteFinancialProduct } from "services";
 
 const DeleteActionModal: React.FC<Props> = props => {
   const { id, name, showModal, setShowModal } = props;
@@ -34,7 +34,5 @@ const DeleteActionModal: React.FC<Props> = props => {
     />
   );
 };
-
-DeleteActionModal.defaultProps = {};
 
 export default DeleteActionModal;

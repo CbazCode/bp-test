@@ -5,7 +5,7 @@ import styles from "./EditActionButtons.styles";
 import { EditActionButtonsProps as Props } from "./EditActionButtons.types";
 import ActionButtons from "components/global/ActionButtons/ActionButtons";
 import Error from "components/global/Error/Error";
-import { usePutFinancialProduct } from "services/products/products.services.hooks";
+import { usePutFinancialProduct } from "services";
 import { Product } from "types/products.types";
 
 const EditActionButtons: React.FC<Props> = () => {
@@ -58,7 +58,5 @@ const EditActionButtons: React.FC<Props> = () => {
     </>
   );
 };
-
-EditActionButtons.defaultProps = {};
 
 export default EditActionButtons;

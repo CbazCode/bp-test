@@ -23,6 +23,4 @@ const CreateProductForm: React.FC<Props> = () => {
   );
 };
 
-CreateProductForm.defaultProps = {};
-
 export default CreateProductForm;

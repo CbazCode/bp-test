@@ -85,7 +85,7 @@ export const verifyFinancialProductId = async (
   try {
     const { id, signal } = config;
     const headers = buildHeaders();
-    const reqUrl = `${url}/verification/${id}`;
+    const reqUrl = `${url}/verification?id=${id}`;
     const response = await fetch(reqUrl, { headers, signal });
     if (!response.ok) throw new Error(response.statusText);
     const data = await response.json();

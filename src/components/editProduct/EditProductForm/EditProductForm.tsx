@@ -32,6 +32,4 @@ const EditProductForm: React.FC<Props> = () => {
   );
 };
 
-EditProductForm.defaultProps = {};
-
 export default EditProductForm;

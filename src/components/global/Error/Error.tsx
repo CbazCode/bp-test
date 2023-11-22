@@ -12,6 +12,4 @@ const Error: React.FC<Props> = props => {
   );
 };
 
-Error.defaultProps = {};
-
 export default Error;

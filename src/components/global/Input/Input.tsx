@@ -1,10 +1,11 @@
+import { forwardRef } from "react";
 import { useController } from "react-hook-form";
 import { Text, TextInput } from "react-native";
 
 import styles from "./Input.styles";
 import { InputProps as Props } from "./Input.types";
 
-const Input: React.FC<Props> = props => {
+const Input = forwardRef<TextInput, Props>((props, ref) => {
   const { label, error, name, editable } = props;
   const errorStyle = !!error && styles.inputError;
   const editableStyle = !editable && styles.inputDisabled;
@@ -19,12 +20,11 @@ const Input: React.FC<Props> = props => {
         style={[styles.input, errorStyle, editableStyle, props.style]}
         value={value}
         onChangeText={onChange}
+        ref={ref}
       />
       {error && <Text style={styles.error}>{error}</Text>}
     </>
   );
-};
-
-Input.defaultProps = {};
+});
 
 export default Input;

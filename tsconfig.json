@@ -3,9 +3,7 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "paths": {
-      "*": [
-        "*"
-      ]
+      "*": ["*"]
     },
     "noEmit": true,
     "skipLibCheck": true,
@@ -14,13 +12,6 @@
     "useUnknownInCatchVariables": false,
     "noUncheckedIndexedAccess": true
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "**/*.ts",
-    "**/*.tsx",
-    ".expo/types/**/*.ts",
-    "expo-env.d.ts"
-  ]
+  "exclude": ["node_modules"],
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }

@@ -39,6 +39,4 @@ const ProductDetailActionButtons: React.FC<Props> = props => {
   );
 };
 
-ProductDetailActionButtons.defaultProps = {};
-
 export default ProductDetailActionButtons;

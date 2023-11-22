@@ -7,7 +7,7 @@ import DeleteActionModal from "components/productDetail/DeleteActionModal/Delete
 import ProductDetail from "components/productDetail/ProductDetail/ProductDetail";
 import ProductDetailActionButtons from "components/productDetail/ProductDetailActionButtons/ProductDetailActionButtons";
 import ScreenTemplate from "screens/ScreenTemplate/ScreenTemplate.screen";
-import { useGetFinancialProduct } from "services/products/products.services.hooks";
+import { useGetFinancialProduct } from "services";
 
 const ProductDetailScreen: React.FC<Props> = () => {
   const { id } = useLocalSearchParams<{ id: string }>();

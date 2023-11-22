@@ -1,23 +1,49 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
+import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import styles from "./CreateActionButtons.styles";
 import { CreateActionButtonsProps as Props } from "./CreateActionButtons.types";
 import ActionButtons from "components/global/ActionButtons/ActionButtons";
-import Error from "components/global/Error/Error";
-import { usePostFinancialProduct } from "services/products/products.services.hooks";
+import ErrorComponent from "components/global/Error/Error";
+import { verifyFinancialProductId } from "services";
+import { usePostFinancialProduct } from "services";
 import { Product } from "types/products.types";
 
 const CreateActionButtons: React.FC<Props> = () => {
-  const { handleSubmit, reset } = useFormContext<Product>();
+  const { handleSubmit, reset, setError } = useFormContext<Product>();
+  const client = useQueryClient();
   const postProductHook = usePostFinancialProduct();
+  const [isValidating, setIsValidating] = useState(false);
   const { back } = router;
   const { mutateAsync: postProduct } = postProductHook;
   const { isError, isPending } = postProductHook;
 
+  const verifyProductId = async (id: string) => {
+    try {
+      setIsValidating(true);
+      const exist = await client.fetchQuery({
+        queryKey: ["verify-product", id],
+        queryFn: () => verifyFinancialProductId({ id }),
+        staleTime: 0
+      });
+      const message = "ID inválido, el producto ya existe";
+      if (exist) setError("id", { message });
+      return exist;
+    } catch (error) {
+      throw new Error(error.message);
+    } finally {
+      setIsValidating(false);
+    }
+  };
+
   const onResetForm = () => reset();
   const onSubmit = async (product: Product) => {
     try {
+      const { id } = product;
+      const exists = await verifyProductId(id);
+      if (exists) return;
       await postProduct({ product });
       back();
     } catch (error) {
@@ -30,7 +56,7 @@ const CreateActionButtons: React.FC<Props> = () => {
   return (
     <>
       {isError ? (
-        <Error message="Ocurrió un error, vuelve a intentarlo" />
+        <ErrorComponent message="Ocurrió un error, vuelve a intentarlo" />
       ) : null}
       <ActionButtons
         textAbove="Enviar"
@@ -41,13 +67,11 @@ const CreateActionButtons: React.FC<Props> = () => {
         textStyleBelow={styles.text}
         onPressAbove={onCreateProduct}
         onPressBelow={onResetForm}
-        loadingAbove={isPending}
-        disabledBelow={isPending}
+        loadingAbove={isPending || isValidating}
+        disabledBelow={isPending || isValidating}
       />
     </>
   );
 };
-
-CreateActionButtons.defaultProps = {};
 
 export default CreateActionButtons;

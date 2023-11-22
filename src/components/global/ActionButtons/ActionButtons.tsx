@@ -32,6 +32,4 @@ const ActionButtons: React.FC<Props> = props => {
   );
 };
 
-ActionButtons.defaultProps = {};
-
 export default ActionButtons;

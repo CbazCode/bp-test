@@ -6,7 +6,7 @@ import { ProductsListProps as Props } from "./ProductsList.types";
 import ProductsListItem from "../ProductsListItem/ProductsListItem";
 import Error from "components/global/Error/Error";
 import Loading from "components/global/Loading/Loading";
-import { useGetFinancialProducts } from "services/products/products.services.hooks";
+import { useGetFinancialProducts } from "services";
 import Colors from "styles/Colors";
 
 const errorMessage = "Ocurrió un problema, vuelve a intentarlo";
