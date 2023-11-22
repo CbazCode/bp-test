@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
+import Header from "components/global/Header/Header";
+
 export { ErrorBoundary } from "expo-router";
 
 export const unstable_settings = {
@@ -42,7 +44,19 @@ function RootLayoutNav() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaProvider>
-        <Stack screenOptions={{ headerShown: false }} />
+        <Stack>
+          <Stack.Screen name="index" options={{ header: () => <Header /> }} />
+          <Stack.Screen
+            name="product/[id]"
+            options={{ title: "Product Detail" }}
+          />
+          <Stack.Screen
+            name="create/index"
+            options={{
+              header: () => <Header showGoBack />
+            }}
+          />
+        </Stack>
       </SafeAreaProvider>
     </ThemeProvider>
   );

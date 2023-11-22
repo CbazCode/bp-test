@@ -18,13 +18,25 @@ module.exports = function (api) {
             ".ios.js",
             ".ios.jsx",
             ".ios.ts",
-            ".ios.tsx",
+            ".ios.tsx"
           ],
           root: ["./src"],
-        },
+          alias: {
+            assets: "./src/assets",
+            components: "./src/components",
+            config: "./src/config",
+            containers: "./src/containers",
+            i18n: "./src/i18n",
+            screens: "./src/screens",
+            services: "./src/services",
+            styles: "./src/styles",
+            interfaces: "./src/interfaces",
+            utils: "./src/utils"
+          }
+        }
       ],
       // Required for expo-router
-      "expo-router/babel",
-    ],
+      "expo-router/babel"
+    ]
   };
 };
