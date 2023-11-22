@@ -17,7 +17,7 @@ const DeleteActionModal: React.FC<Props> = props => {
       back();
     } catch (error) {
       // TODO: add toast
-      console.log(error);
+      console.error(error);
     }
   };
   const onCancel = () => setShowModal(false);
