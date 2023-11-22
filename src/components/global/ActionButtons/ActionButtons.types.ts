@@ -1,9 +1,9 @@
 // Interfaces and types from component ActionButtons
 
-import { StyleProp, TextStyle, ViewStyle } from "react-native";
+import { StyleProp, TextStyle, ViewProps, ViewStyle } from "react-native";
 
 // Component Props
-export interface ActionButtonsProps {
+export interface ActionButtonsProps extends ViewProps {
   textAbove: string;
   textStyleAbove?: StyleProp<TextStyle>;
   textBelow: string;

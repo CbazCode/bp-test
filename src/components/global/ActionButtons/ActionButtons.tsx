@@ -12,6 +12,7 @@ const ActionButtons: React.FC<Props> = props => {
   return (
     <View style={[styles.container, style]}>
       <Button
+        testID="action-button"
         text={textAbove}
         style={styleAbove}
         textStyle={textStyleAbove}
@@ -21,6 +22,7 @@ const ActionButtons: React.FC<Props> = props => {
       />
       <View style={styles.separator} />
       <Button
+        testID="action-button"
         text={textBelow}
         style={styleBelow}
         textStyle={textStyleBelow}

@@ -1,18 +1,8 @@
-// import React from "react";
+import ProductDetailScreen from "./ProductDetail.screen";
+import { render } from "test/setupFilesAfterEnv";
 
-// import { render } from "setupTests";
-// import { buildStackNavigation } from "utils/testUtils/builders/navigation.builder";
-// import { buildRoute } from "utils/testUtils/builders/navigation.builder";
-// import ProductDetail from "./ProductDetail.screen";
-// import { ProductDetailRoute } from "./ProductDetail.screen.types";
-
-// describe("ProductDetail screen", () => {
-//   it("renders without crashing", () => {
-//     render(
-//       <ProductDetail
-//         navigation={buildStackNavigation()}
-//         route={buildRoute<ProductDetailRoute>({ name: "ProductDetail" })}
-//       />
-//     );
-//   });
-// });
+describe("ProductDetail screen", () => {
+  it("renders without crashing", () => {
+    render(<ProductDetailScreen />);
+  });
+});

@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import GoBack from "./GoBack";
+import GoBack from "./GoBack";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("GoBack", () => {
-//   it("renders with default props", () => {
-//     render(<GoBack />);
-//   });
-// });
+describe("GoBack", () => {
+  it("renders with default props", () => {
+    render(<GoBack />);
+  });
+});

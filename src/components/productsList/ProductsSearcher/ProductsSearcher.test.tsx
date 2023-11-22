@@ -1,10 +1,10 @@
-// import React from "react";
-// import { render } from "setupTests";
+import React from "react";
 
-// import ProductsSearcher from "./ProductsSearcher";
+import ProductsSearcher from "./ProductsSearcher";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("ProductsSearcher", () => {
-//   it("renders with default props", () => {
-//     render(<ProductsSearcher />);
-//   });
-// });
+describe("ProductsSearcher", () => {
+  it("renders with default props", () => {
+    render(<ProductsSearcher text="" setText={() => {}} />);
+  });
+});

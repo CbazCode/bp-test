@@ -1,10 +1,19 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import ActionButtons from "./ActionButtons";
+import ActionButtons from "./ActionButtons";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("ActionButtons", () => {
-//   it("renders with default props", () => {
-//     render(<ActionButtons />);
-//   });
-// });
+describe("ActionButtons", () => {
+  it("renders with default props", () => {
+    render(
+      <ActionButtons
+        onPressAbove={() => {}}
+        onPressBelow={() => {}}
+        styleAbove={{}}
+        styleBelow={{}}
+        textAbove="textAbove"
+        textBelow="textBelow"
+      />
+    );
+  });
+});

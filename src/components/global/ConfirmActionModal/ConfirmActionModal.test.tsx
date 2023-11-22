@@ -1,10 +1,16 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import ConfirmActionModal from "./ConfirmActionModal";
+import ConfirmActionModal from "./ConfirmActionModal";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("ConfirmActionModal", () => {
-//   it("renders with default props", () => {
-//     render(<ConfirmActionModal />);
-//   });
-// });
+describe("ConfirmActionModal", () => {
+  it("renders with default props", () => {
+    render(
+      <ConfirmActionModal
+        title="title"
+        onConfirm={() => {}}
+        onCancel={() => {}}
+      />
+    );
+  });
+});

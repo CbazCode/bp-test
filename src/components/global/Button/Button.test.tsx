@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import Button from "./Button";
+import Button from "./Button";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("Button", () => {
-//   it("renders with default props", () => {
-//     render(<Button />);
-//   });
-// });
+describe("Button", () => {
+  it("renders with default props", () => {
+    render(<Button text="text" />);
+  });
+});

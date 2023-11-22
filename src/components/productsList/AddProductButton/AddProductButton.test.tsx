@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import AddProductButton from "./AddProductButton";
+import AddProductButton from "./AddProductButton";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("AddProductButton", () => {
-//   it("renders with default props", () => {
-//     render(<AddProductButton />);
-//   });
-// });
+describe("AddProductButton", () => {
+  it("renders with default props", () => {
+    render(<AddProductButton />);
+  });
+});

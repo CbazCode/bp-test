@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import ProductsList from "./ProductsList";
+import ProductsList from "./ProductsList";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("ProductsList", () => {
-//   it("renders with default props", () => {
-//     render(<ProductsList />);
-//   });
-// });
+describe("ProductsList", () => {
+  it("renders with default props", () => {
+    render(<ProductsList />);
+  });
+});

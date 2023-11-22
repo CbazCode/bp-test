@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import Image from "./Image";
+import Image from "./Image";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("Image", () => {
-//   it("renders with default props", () => {
-//     render(<Image />);
-//   });
-// });
+describe("Image", () => {
+  it("renders with default props", () => {
+    render(<Image uri="" />);
+  });
+});

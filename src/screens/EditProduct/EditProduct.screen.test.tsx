@@ -1,18 +1,8 @@
-// import React from "react";
+import EditProductScreen from "./EditProduct.screen";
+import { render } from "test/setupFilesAfterEnv";
 
-// import { render } from "setupTests";
-// import { buildStackNavigation } from "utils/testUtils/builders/navigation.builder";
-// import { buildRoute } from "utils/testUtils/builders/navigation.builder";
-// import EditProduct from "./EditProduct.screen";
-// import { EditProductRoute } from "./EditProduct.screen.types";
-
-// describe("EditProduct screen", () => {
-//   it("renders without crashing", () => {
-//     render(
-//       <EditProduct
-//         navigation={buildStackNavigation()}
-//         route={buildRoute<EditProductRoute>({ name: "EditProduct" })}
-//       />
-//     );
-//   });
-// });
+describe("EditProduct screen", () => {
+  it("renders without crashing", () => {
+    render(<EditProductScreen />);
+  });
+});

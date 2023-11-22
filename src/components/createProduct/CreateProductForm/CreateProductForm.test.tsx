@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import CreateProductForm from "./CreateProductForm";
+import CreateProductForm from "./CreateProductForm";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("CreateProductForm", () => {
-//   it("renders with default props", () => {
-//     render(<CreateProductForm />);
-//   });
-// });
+describe("CreateProductForm", () => {
+  it("renders with default props", () => {
+    render(<CreateProductForm />);
+  });
+});

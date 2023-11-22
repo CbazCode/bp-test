@@ -3,6 +3,10 @@
 # dependencies
 node_modules/
 
+# snapshot testing
+__snapshots__/
+
+
 # Expo
 .expo/
 dist/

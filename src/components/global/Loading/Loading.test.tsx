@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import Loading from "./Loading";
+import Loading from "./Loading";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("Loading", () => {
-//   it("renders with default props", () => {
-//     render(<Loading />);
-//   });
-// });
+describe("Loading", () => {
+  it("renders with default props", () => {
+    render(<Loading />);
+  });
+});

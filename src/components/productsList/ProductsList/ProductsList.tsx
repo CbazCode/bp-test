@@ -32,7 +32,7 @@ const ProductsList: React.FC<Props> = props => {
 
   return (
     <>
-      {props.render(filterProduct, setFilterProduct)}
+      {props.render?.(filterProduct, setFilterProduct)}
       <View style={styles.container}>
         <FlatList
           data={filteredProducts}

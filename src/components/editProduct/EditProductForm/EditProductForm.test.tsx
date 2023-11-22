@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import EditProductForm from "./EditProductForm";
+import EditProductForm from "./EditProductForm";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("EditProductForm", () => {
-//   it("renders with default props", () => {
-//     render(<EditProductForm />);
-//   });
-// });
+describe("EditProductForm", () => {
+  it("renders with default props", () => {
+    render(<EditProductForm />);
+  });
+});

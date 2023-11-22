@@ -1,10 +1,10 @@
-// import React from "react";
+import React from "react";
 
-// import { render } from "setupTests";
-// import EditActionButtons from "./EditActionButtons";
+import EditActionButtons from "./EditActionButtons";
+import { render } from "test/setupFilesAfterEnv";
 
-// describe("EditActionButtons", () => {
-//   it("renders with default props", () => {
-//     render(<EditActionButtons />);
-//   });
-// });
+describe("EditActionButtons", () => {
+  it("renders with default props", () => {
+    render(<EditActionButtons />);
+  });
+});
