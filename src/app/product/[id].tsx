@@ -1,7 +1,7 @@
-import { Text } from "react-native";
+import ProductDetailScreen from "screens/ProductDetail/ProductDetail.screen";
 
-const Page = () => {
-  return <Text>[id]</Text>;
+const Screen = () => {
+  return <ProductDetailScreen />;
 };
 
-export default Page;
+export default Screen;

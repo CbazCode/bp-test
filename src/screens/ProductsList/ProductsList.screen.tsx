@@ -1,5 +1,3 @@
-import React from "react";
-
 import styles from "./ProductsList.screen.styles";
 import { ProductsListProps as Props } from "./ProductsList.screen.types";
 import AddProductButton from "components/productsList/AddProductButton/AddProductButton";
@@ -10,8 +8,14 @@ import ScreenTemplate from "screens/ScreenTemplate/ScreenTemplate.screen";
 const ProductsListScreen: React.FC<Props> = () => {
   return (
     <ScreenTemplate style={styles.container}>
-      <ProductsSearcher />
-      <ProductsList />
+      <ProductsList
+        render={(filteredProduct, setFilteredProduct) => (
+          <ProductsSearcher
+            text={filteredProduct}
+            setText={setFilteredProduct}
+          />
+        )}
+      />
       <AddProductButton />
     </ScreenTemplate>
   );

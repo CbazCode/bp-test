@@ -1,4 +1,3 @@
-import React from "react";
 import { SafeAreaView, ScrollView } from "react-native";
 
 import styles from "./ScreenTemplate.screen.styles";

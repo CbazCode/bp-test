@@ -28,6 +28,10 @@ const styles = StyleSheet.create({
   },
   inputError: {
     borderColor: Colors.light.danger
+  },
+  inputDisabled: {
+    backgroundColor: Colors.light.lightGray,
+    opacity: 0.4
   }
 });
 

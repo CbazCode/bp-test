@@ -1,4 +1,3 @@
-import React from "react";
 import { View } from "react-native";
 
 import styles from "./ActionButtons.styles";
@@ -6,11 +5,12 @@ import { ActionButtonsProps as Props } from "./ActionButtons.types";
 import Button from "../Button/Button";
 
 const ActionButtons: React.FC<Props> = props => {
-  const { textAbove, textBelow, styleAbove, styleBelow } = props;
+  const { textAbove, textBelow, styleAbove, styleBelow, style } = props;
   const { textStyleAbove, textStyleBelow, onPressAbove, onPressBelow } = props;
   const { loadingAbove, loadingBelow, disabledAbove, disabledBelow } = props;
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, style]}>
       <Button
         text={textAbove}
         style={styleAbove}

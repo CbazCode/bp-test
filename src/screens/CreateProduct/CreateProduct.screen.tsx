@@ -1,10 +1,8 @@
-import React from "react";
-
 import { CreateProductProps as Props } from "./CreateProduct.screen.types";
 import CreateProductForm from "components/createProduct/CreateProductForm/CreateProductForm";
 import ScreenTemplate from "screens/ScreenTemplate/ScreenTemplate.screen";
 
-const CreateProduct: React.FC<Props> = props => {
+const CreateProductScreen: React.FC<Props> = () => {
   return (
     <ScreenTemplate scrollable>
       <CreateProductForm />
@@ -12,6 +10,4 @@ const CreateProduct: React.FC<Props> = props => {
   );
 };
 
-CreateProduct.defaultProps = {};
-
-export default CreateProduct;
+export default CreateProductScreen;

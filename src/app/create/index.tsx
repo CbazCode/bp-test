@@ -1,7 +1,7 @@
-import CreateProduct from "screens/CreateProduct/CreateProduct.screen";
+import CreateProductScreen from "screens/CreateProduct/CreateProduct.screen";
 
 const Screen = () => {
-  return <CreateProduct />;
+  return <CreateProductScreen />;
 };
 
 export default Screen;

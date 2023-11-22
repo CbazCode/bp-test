@@ -1,4 +1,4 @@
-import React from "react";
+import { router } from "expo-router";
 import { useFormContext } from "react-hook-form";
 
 import styles from "./CreateActionButtons.styles";
@@ -10,15 +10,28 @@ import { Product } from "types/products.types";
 
 const CreateActionButtons: React.FC<Props> = () => {
   const { handleSubmit, reset } = useFormContext<Product>();
-  const { isLoading, postProduct, error } = usePostFinancialProduct();
+  const postProductHook = usePostFinancialProduct();
+  const { back } = router;
+  const { mutateAsync: postProduct } = postProductHook;
+  const { isError, isPending } = postProductHook;
 
-  const onSubmit = async (product: Product) => await postProduct(product);
-  const onCreateProduct = async () => handleSubmit(onSubmit)();
   const onResetForm = () => reset();
+  const onSubmit = async (product: Product) => {
+    try {
+      await postProduct({ product });
+      back();
+    } catch (error) {
+      // TODO: ADD TOAST
+      console.error(error);
+    }
+  };
+  const onCreateProduct = async () => handleSubmit(onSubmit)();
 
   return (
     <>
-      {error ? <Error message="Ocurrió un error, vuelve a intentarlo" /> : null}
+      {isError ? (
+        <Error message="Ocurrió un error, vuelve a intentarlo" />
+      ) : null}
       <ActionButtons
         textAbove="Enviar"
         textBelow="Reiniciar"
@@ -28,8 +41,8 @@ const CreateActionButtons: React.FC<Props> = () => {
         textStyleBelow={styles.text}
         onPressAbove={onCreateProduct}
         onPressBelow={onResetForm}
-        loadingAbove={isLoading}
-        disabledBelow={isLoading}
+        loadingAbove={isPending}
+        disabledBelow={isPending}
       />
     </>
   );

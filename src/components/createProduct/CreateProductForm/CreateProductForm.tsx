@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Text } from "react-native";
 
@@ -16,13 +15,11 @@ const CreateProductForm: React.FC<Props> = () => {
   });
 
   return (
-    <>
-      <FormProvider {...formMethods}>
-        <Text style={styles.title}>Formulario de registro</Text>
-        <ProductForm />
-        <CreateActionButtons />
-      </FormProvider>
-    </>
+    <FormProvider {...formMethods}>
+      <Text style={styles.title}>Formulario de registro</Text>
+      <ProductForm />
+      <CreateActionButtons />
+    </FormProvider>
   );
 };
 

@@ -24,6 +24,11 @@ const styles = StyleSheet.create({
   },
   refreshControl: {
     backgroundColor: Colors.light.background
+  },
+  notFound: {
+    color: Colors.light.secondary,
+    fontSize: 14,
+    paddingVertical: 16
   }
 });
 

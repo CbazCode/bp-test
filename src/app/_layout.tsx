@@ -1,6 +1,7 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { ThemeProvider } from "@react-navigation/native";
 import { DarkTheme, DefaultTheme } from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
@@ -10,11 +11,6 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import Header from "components/global/Header/Header";
 
 export { ErrorBoundary } from "expo-router";
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)"
-};
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -40,23 +36,28 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+  const queryClient = new QueryClient();
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaProvider>
-        <Stack>
-          <Stack.Screen name="index" options={{ header: () => <Header /> }} />
-          <Stack.Screen
-            name="product/[id]"
-            options={{ title: "Product Detail" }}
-          />
-          <Stack.Screen
-            name="create/index"
-            options={{
-              header: () => <Header showGoBack />
-            }}
-          />
-        </Stack>
+        <QueryClientProvider client={queryClient}>
+          <Stack>
+            <Stack.Screen name="index" options={{ header: () => <Header /> }} />
+            <Stack.Screen
+              name="product/[id]"
+              options={{ header: () => <Header showGoBack /> }}
+            />
+            <Stack.Screen
+              name="create/index"
+              options={{ header: () => <Header showGoBack /> }}
+            />
+            <Stack.Screen
+              name="edit/index"
+              options={{ header: () => <Header showGoBack /> }}
+            />
+          </Stack>
+        </QueryClientProvider>
       </SafeAreaProvider>
     </ThemeProvider>
   );

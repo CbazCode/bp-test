@@ -16,4 +16,5 @@ export interface ActionButtonsProps {
   loadingBelow?: boolean;
   disabledAbove?: boolean;
   disabledBelow?: boolean;
+  style?: StyleProp<ViewStyle>;
 }

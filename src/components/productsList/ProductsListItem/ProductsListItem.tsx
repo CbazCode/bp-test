@@ -8,9 +8,17 @@ import ChevronSVG from "assets/icons/chevron.svg";
 
 const ProductsListItem: React.FC<Props> = props => {
   const { product } = props;
-  const { id, name } = product ?? {};
+  const { id, name } = product;
   return (
-    <Link href={`/product/${id}`} asChild>
+    <Link
+      href={
+        {
+          pathname: "/product/[id]",
+          params: { id }
+        } as never
+      }
+      asChild
+    >
       <TouchableOpacity style={styles.container}>
         <View style={styles.textWrapper}>
           <Text>{name}</Text>

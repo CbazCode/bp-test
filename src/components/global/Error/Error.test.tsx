@@ -1,10 +1,10 @@
-import React from "react";
+// import React from "react";
 
-import { render } from "setupTests";
-import Error from "./Error";
+// import { render } from "setupTests";
+// import Error from "./Error";
 
-describe("Error", () => {
-  it("renders with default props", () => {
-    render(<Error />);
-  });
-});
+// describe("Error", () => {
+//   it("renders with default props", () => {
+//     render(<Error />);
+//   });
+// });

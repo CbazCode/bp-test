@@ -1,5 +1,4 @@
 import { router } from "expo-router";
-import React from "react";
 import { TouchableOpacity } from "react-native";
 
 import styles from "./GoBack.styles";

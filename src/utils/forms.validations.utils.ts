@@ -2,34 +2,36 @@ import { z } from "zod";
 
 export const validation = {
   id: z
-    .string()
-    .min(3, { message: "Must be at least 3 characters" })
-    .max(10, { message: "Must be less than 10 characters" }),
+    .string({
+      required_error: "Este campo es requerido"
+    })
+    .min(3, { message: "Debe tener por lo menos 3 caracteres" })
+    .max(10, { message: "Debe tener como máximo 10 caracteres" }),
   name: z
     .string()
     .min(5, {
-      message: "Must be at least 5 characters"
+      message: "Debe tener por lo menos 5 caracteres"
     })
     .max(100, {
-      message: "Must be less than 100 characters"
+      message: "Debe tener como máximo 100 caracteres"
     }),
   description: z
     .string()
     .min(10, {
-      message: "Must be at least 10 characters"
+      message: "Debe tener por lo menos 10 caracteres"
     })
     .max(200, {
-      message: "Must be less than 200 characters"
+      message: "Debe tener como máximo 200 caracteres"
     }),
-  logo: z.string({ required_error: "Logo is required" }),
+  logo: z.string({ required_error: "Este campo es requerido" }),
   date_release: z
     .string({
-      required_error: "Date release is required"
+      required_error: "Este campo es requerido"
     })
     .min(6),
   date_revision: z
     .string({
-      required_error: "Date release is required"
+      required_error: "Este campo es requerido"
     })
     .min(6)
 };

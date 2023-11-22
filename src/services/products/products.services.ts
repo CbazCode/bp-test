@@ -1,8 +1,6 @@
-import {
-  DeleteProductConfig,
-  GetProductsConfig,
-  VerifyProductConfig
-} from "./products.services.types";
+import { DeleteProductConfig } from "./products.services.types";
+import { GetProductsConfig } from "./products.services.types";
+import { VerifyProductConfig } from "./products.services.types";
 import { PostProductConfig, PutProductConfig } from "./products.services.types";
 import { CONSTANTS } from "../../config/constants";
 import { buildHeaders } from "services/services.helpers";
@@ -33,10 +31,10 @@ export const postFinancialProduct = async (
   config: PostProductConfig
 ): Promise<Product> => {
   try {
-    const { product, signal } = config;
+    const { product } = config;
     const headers = buildHeaders();
     const body = JSON.stringify(product);
-    const reqConfig = { method: "POST", body, headers, signal };
+    const reqConfig = { method: "POST", body, headers };
     const response = await fetch(url, reqConfig);
     if (!response.ok) throw new Error(response.statusText);
     const data = await response.json();
@@ -65,14 +63,17 @@ export const putFinancialProduct = async (
 
 export const deleteFinancialProduct = async (
   config: DeleteProductConfig
-): Promise<Product> => {
+): Promise<string> => {
   try {
     const { id } = config;
     const headers = buildHeaders();
-    const response = await fetch(`${url}/${id}`, { method: "DELETE", headers });
+    const reqUrl = `${url}?id=${id}`;
+    const response = await fetch(reqUrl, { method: "DELETE", headers });
     if (!response.ok) throw new Error(response.statusText);
-    const data = await response.json();
-    return data;
+    if (response.status === 200) return "Product successfully removed";
+    if (response.status === 404) return "Not product found with that id";
+    if (response.status === 400) return "Header authorId is missing";
+    throw new Error("Something went wrong");
   } catch (e) {
     throw new Error(e.message);
   }

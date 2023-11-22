@@ -1,5 +1,4 @@
 import { router } from "expo-router";
-import React from "react";
 
 import styles from "./AddProductButton.styles";
 import { AddProductButtonProps as Props } from "./AddProductButton.types";

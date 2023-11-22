@@ -1,128 +1,157 @@
-import { useEffect, useState } from "react";
+import { QueryKey, useMutation } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
-import { deleteFinancialProduct } from "./products.services";
-// This can be improve  with tan stack library
+import { getFinancialProducts, putFinancialProduct } from "./products.services";
 import { verifyFinancialProductId } from "./products.services";
-import { getFinancialProducts } from "./products.services";
-import { postFinancialProduct, putFinancialProduct } from "./products.services";
-import { Product } from "types/products.types";
+import { deleteFinancialProduct } from "./products.services";
+import { postFinancialProduct } from "./products.services";
+import { DeleteProductConfig } from "./products.services.types";
+import { VerifyProductConfig } from "./products.services.types";
+import { GetProductConfig } from "./products.services.types";
+import { GetProductsConfig, PutProductConfig } from "./products.services.types";
+import { PostProductConfig, QueryOptions } from "./products.services.types";
+import { Product, PutProduct } from "types/products.types";
 
-export const useGetProducts = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isRefetching, setIsRefetching] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [error, setError] = useState(null);
-  const controller = new AbortController();
+export const useGetFinancialProducts = (
+  config?: GetProductsConfig,
+  queryOptions: QueryOptions = {}
+) => {
+  const { signal } = config ?? {};
+  return useQuery<Product[], Error>({
+    queryKey: ["products"],
+    queryFn: () => getFinancialProducts({ signal }),
+    staleTime: 60 * 60 * 1000,
+    ...queryOptions
+  });
+};
 
-  const fetchProducts = async () => {
-    try {
-      const config = { signal: controller.signal };
-      const products = await getFinancialProducts(config);
-      setProducts(products);
-    } catch (err) {
-      setError(err);
-    }
-  };
-
-  const getProducts = async () => {
-    setIsLoading(true);
-    await fetchProducts();
-    setIsLoading(false);
-  };
-
-  const refetchProducts = async () => {
-    setIsRefetching(true);
-    await fetchProducts();
-    setIsRefetching(false);
-  };
-
-  useEffect(() => {
-    (async () => {
-      await getProducts();
-    })();
-    return () => controller.abort();
-  }, []);
-
-  return { isLoading, products, error, refetchProducts, isRefetching };
+export const useGetFinancialProduct = (
+  config: GetProductConfig,
+  queryOptions: QueryOptions = {}
+) => {
+  const { id, signal } = config;
+  return useQuery<Product[], Error, Product | undefined>({
+    queryKey: ["product", id],
+    queryFn: () => getFinancialProducts({ signal }),
+    select: products => products.find(product => product.id === id),
+    staleTime: 60 * 60 * 1000,
+    ...queryOptions
+  });
 };
 
 export const usePostFinancialProduct = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const controller = new AbortController();
+  const queryClient = useQueryClient();
 
-  const postProduct = async (product: Product) => {
-    setIsLoading(true);
-    try {
-      const config = { product, signal: controller.signal };
-      await postFinancialProduct(config);
-    } catch (err) {
-      setError(err);
-    }
-    setIsLoading(false);
-  };
-
-  return { isLoading, postProduct, error, postController: controller };
+  return useMutation<Product, Error, PostProductConfig, Product[]>({
+    mutationFn: postFinancialProduct,
+    onMutate: async (
+      config: PostProductConfig
+    ): Promise<Product[] | undefined> => {
+      const { product } = config;
+      await queryClient.cancelQueries({ queryKey: ["products"] });
+      const previousProducts = queryClient.getQueryData<Product[]>([
+        "products"
+      ]);
+      queryClient.setQueryData<Product[]>(["products"], old => [
+        ...(old ?? []),
+        product
+      ]);
+      return previousProducts;
+    },
+    onError: (
+      _errorData: Error,
+      _config: PostProductConfig,
+      previousProducts: Product[] | undefined
+    ) => {
+      if (!previousProducts) return;
+      queryClient.setQueryData(["products"], previousProducts);
+    },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ["products"] })
+  });
 };
 
 export const usePutFinancialProduct = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const controller = new AbortController();
+  const queryClient = useQueryClient();
 
-  const putProduct = async (product: Partial<Product>) => {
-    setIsLoading(true);
-    try {
-      const config = { product, signal: controller.signal };
-      await putFinancialProduct(config);
-    } catch (err) {
-      setError(err);
+  return useMutation<Product, Error, PutProductConfig, Product[]>({
+    mutationFn: putFinancialProduct,
+    onMutate: async (
+      config: PutProductConfig
+    ): Promise<Product[] | undefined> => {
+      const { product } = config;
+      await queryClient.cancelQueries({ queryKey: ["products"] });
+      const previousProducts = queryClient.getQueryData<Product[]>([
+        "products"
+      ]);
+
+      queryClient.setQueryData<Product[], QueryKey, PutProduct[]>(
+        ["products"],
+        () => {
+          return previousProducts?.map(previousProduct => {
+            if (previousProduct.id === product.id) {
+              return { previousProduct, ...product };
+            }
+            return previousProduct;
+          });
+        }
+      );
+      return previousProducts;
+    },
+    onError: (
+      _errorData: Error,
+      _config: PutProductConfig,
+      previousProducts: Product[] | undefined
+    ) => {
+      if (!previousProducts) return;
+      queryClient.setQueryData(["products"], previousProducts);
+    },
+    onSettled: product => {
+      const { id } = product ?? {};
+      queryClient.invalidateQueries({ queryKey: ["product", id] });
     }
-    setIsLoading(false);
-  };
-
-  return { isLoading, putProduct, error, putController: controller };
+  });
 };
 
 export const useDeleteFinancialProduct = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const queryClient = useQueryClient();
 
-  const deleteProduct = async (id: string) => {
-    setIsLoading(true);
-    try {
-      const config = { id };
-      await deleteFinancialProduct(config);
-    } catch (err) {
-      setError(err);
-    }
-    setIsLoading(false);
-  };
-
-  return { isLoading, deleteProduct, error };
+  return useMutation<string, Error, DeleteProductConfig, Product[]>({
+    mutationFn: deleteFinancialProduct,
+    onMutate: async (
+      config: DeleteProductConfig
+    ): Promise<Product[] | undefined> => {
+      const { id } = config;
+      await queryClient.cancelQueries({ queryKey: ["products"] });
+      const previousProducts = queryClient.getQueryData<Product[]>([
+        "products"
+      ]);
+      queryClient.setQueryData<Product[]>(["products"], () => {
+        return previousProducts?.filter(
+          previousProduct => previousProduct.id === id
+        );
+      });
+      return previousProducts;
+    },
+    onError: (
+      _errorData: Error,
+      _config: DeleteProductConfig,
+      previousProducts: Product[] | undefined
+    ) => {
+      if (!previousProducts) return;
+      queryClient.setQueryData(["products"], previousProducts);
+    },
+    onSettled: () => queryClient.invalidateQueries({ queryKey: ["products"] })
+  });
 };
 
-export const useVerifyFinancialProductId = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const controller = new AbortController();
-
-  const verifyFinancialProduct = async (id: string) => {
-    setIsLoading(true);
-    try {
-      const config = { id, signal: controller.signal };
-      const exist = await verifyFinancialProductId(config);
-      return exist;
-    } catch (err) {
-      setError(err);
-    }
-    setIsLoading(false);
-  };
-
-  return {
-    isLoading,
-    verifyFinancialProduct,
-    error,
-    verifyController: controller
-  };
+export const useVerifyFinancialProductId = (
+  config: VerifyProductConfig,
+  queryOptions: QueryOptions
+) => {
+  const { id, signal } = config;
+  return useQuery<boolean, Error>({
+    queryKey: ["verify-product", id],
+    queryFn: () => verifyFinancialProductId({ id, signal }),
+    ...queryOptions
+  });
 };

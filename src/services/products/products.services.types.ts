@@ -1,6 +1,12 @@
-import { Product } from "types/products.types";
+import { UseQueryOptions } from "@tanstack/react-query";
+
+import { Product, PutProduct } from "types/products.types";
 
 export interface GetProductsConfig {
+  signal?: AbortSignal;
+}
+export interface GetProductConfig {
+  id: Product["id"];
   signal?: AbortSignal;
 }
 
@@ -10,15 +16,17 @@ export interface PostProductConfig {
 }
 
 export interface PutProductConfig {
-  product: Partial<Product>;
+  product: PutProduct;
   signal?: AbortSignal;
 }
 
 export interface DeleteProductConfig {
-  id: string;
+  id: Product["id"];
 }
 
 export interface VerifyProductConfig {
   id: string;
   signal?: AbortSignal;
 }
+
+export interface QueryOptions extends Pick<UseQueryOptions, "enabled"> {}
