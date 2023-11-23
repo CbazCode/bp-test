@@ -4,6 +4,7 @@ import { View } from "react-native";
 import styles from "./ProductForm.styles";
 import { ProductFormProps as Props } from "./ProductForm.types";
 import Input from "../Input/Input";
+import InputDatePicker from "../InputDatePicker/InputDatePicker";
 import Colors from "styles/Colors";
 import { Product } from "types/products.types";
 
@@ -46,18 +47,18 @@ const ProductForm: React.FC<Props> = props => {
         error={errors.logo?.message}
         editable={editable}
       />
-      <Input
+      <InputDatePicker
         {...register("date_release")}
         label="Fecha Liberación"
-        placeholder="2024-01-24"
+        placeholder="24-01-2024"
         placeholderTextColor={Colors.light.darkGray}
         error={errors.date_release?.message}
         editable={editable}
       />
-      <Input
+      <InputDatePicker
         {...register("date_revision")}
         label="Fecha Revisión"
-        placeholder="2024-01-24"
+        placeholder="24-01-2025"
         placeholderTextColor={Colors.light.darkGray}
         error={errors.date_revision?.message}
         editable={editable}

@@ -5,10 +5,10 @@ import { LoadingProps as Props } from "./Loading.types";
 import { useThemeColor } from "hooks/useThemeColor";
 
 const Loading: React.FC<Props> = props => {
-  const primary = useThemeColor({ colorName: "primary" });
+  const secondary = useThemeColor({ colorName: "secondary" });
   return (
     <View style={styles.container}>
-      <ActivityIndicator {...props} color={primary} />
+      <ActivityIndicator {...props} color={secondary} />
     </View>
   );
 };

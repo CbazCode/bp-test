@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Image as RnImage, NativeSyntheticEvent } from "react-native";
 import { ImageErrorEventData } from "react-native";
 
+import styles from "./Image.styles";
 import { ImageProps as Props } from "./Image.types";
 import { CONSTANTS } from "config/constants";
 const { APP } = CONSTANTS;
@@ -16,7 +17,17 @@ const Image: React.FC<Props> = props => {
     setShowImageError(true);
     rest.onError?.(e);
   };
-  return <RnImage source={{ uri: fallback ?? uri }} onError={onError} />;
+  return (
+    <RnImage
+      {...rest}
+      source={{ uri: fallback ?? uri }}
+      onError={onError}
+      height={140}
+      width={140}
+      borderRadius={20}
+      style={styles.container}
+    />
+  );
 };
 
 export default Image;

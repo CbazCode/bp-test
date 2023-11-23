@@ -30,13 +30,13 @@ const ProductDetail: React.FC<Props> = props => {
         <View style={styles.row}>
           <Text style={styles.label}>Fecha de liberación</Text>
           <Text style={styles.value}>
-            {dayjs(date_release).format("DD/MM/YYYY")}
+            {dayjs(date_release).format("DD-MM-YYYY")}
           </Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Fecha de revisión</Text>
           <Text style={styles.value}>
-            {dayjs(date_revision).format("DD/MM/YYYY")}
+            {dayjs(date_revision).format("DD-MM-YYYY")}
           </Text>
         </View>
       </View>

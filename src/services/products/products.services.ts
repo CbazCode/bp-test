@@ -5,6 +5,7 @@ import { PostProductConfig, PutProductConfig } from "./products.services.types";
 import { CONSTANTS } from "../../config/constants";
 import { buildHeaders } from "services/services.helpers";
 import { Product } from "types/products.types";
+import { productSchema } from "utils/forms.utils";
 
 const { API } = CONSTANTS;
 const { API_URL } = API;
@@ -32,6 +33,7 @@ export const postFinancialProduct = async (
 ): Promise<Product> => {
   try {
     const { product } = config;
+    productSchema.parse(product);
     const headers = buildHeaders();
     const body = JSON.stringify(product);
     const reqConfig = { method: "POST", body, headers };
@@ -49,6 +51,7 @@ export const putFinancialProduct = async (
 ): Promise<Product> => {
   try {
     const { product, signal } = config;
+    productSchema.parse(product);
     const headers = buildHeaders();
     const body = JSON.stringify(product);
     const reqConfig = { method: "PUT", body, headers, signal };

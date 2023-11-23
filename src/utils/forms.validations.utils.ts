@@ -1,4 +1,7 @@
+import dayjs from "dayjs";
 import { z } from "zod";
+
+const currentDate = dayjs().startOf("day").toDate();
 
 export const validation = {
   id: z
@@ -8,7 +11,9 @@ export const validation = {
     .min(3, { message: "Debe tener por lo menos 3 caracteres" })
     .max(10, { message: "Debe tener como máximo 10 caracteres" }),
   name: z
-    .string()
+    .string({
+      required_error: "Este campo es requerido"
+    })
     .min(5, {
       message: "Debe tener por lo menos 5 caracteres"
     })
@@ -16,22 +21,26 @@ export const validation = {
       message: "Debe tener como máximo 100 caracteres"
     }),
   description: z
-    .string()
+    .string({
+      required_error: "Este campo es requerido"
+    })
     .min(10, {
       message: "Debe tener por lo menos 10 caracteres"
     })
     .max(200, {
       message: "Debe tener como máximo 200 caracteres"
     }),
-  logo: z.string({ required_error: "Este campo es requerido" }),
+  logo: z
+    .string({ required_error: "Este campo es requerido" })
+    .url({ message: "Debe ser una URL válida" }),
   date_release: z
-    .string({
+    .date({
       required_error: "Este campo es requerido"
     })
-    .min(6),
-  date_revision: z
-    .string({
-      required_error: "Este campo es requerido"
-    })
-    .min(6)
+    .min(currentDate, {
+      message: "Debe ser mayor a la fecha actual"
+    }),
+  date_revision: z.date({
+    required_error: "Este campo es requerido"
+  })
 };

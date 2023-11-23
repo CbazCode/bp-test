@@ -1,5 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 
+import styles from "./ProductDetail.screen.styles";
 import { ProductDetailProps as Props } from "./ProductDetail.screen.types";
 import Error from "components/global/Error/Error";
 import Loading from "components/global/Loading/Loading";
@@ -18,7 +19,7 @@ const ProductDetailScreen: React.FC<Props> = () => {
   if (!product) return null;
 
   return (
-    <ScreenTemplate>
+    <ScreenTemplate style={styles.container}>
       <ProductDetail product={product} />
       <ProductDetailActionButtons
         product={product}

@@ -7,5 +7,10 @@ import { TextInputProps } from "react-native";
 export interface InputProps extends TextInputProps {
   label?: string;
   error?: string;
+  isDate?: boolean;
   name: UseFormRegisterReturn["name"];
+}
+
+export interface InputMethods {
+  onChange: (value: Date) => void;
 }

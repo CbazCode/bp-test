@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity } from "react-native";
 
 import styles from "./ProductsListItem.styles";
 import { ProductsListItemProps as Props } from "./ProductsListItem.types";
+import Colors from "styles/Colors";
 
 import ChevronSVG from "assets/icons/chevron.svg";
 
@@ -24,7 +25,7 @@ const ProductsListItem: React.FC<Props> = props => {
           <Text>{name}</Text>
           <Text style={styles.id}>ID: {id}</Text>
         </View>
-        <ChevronSVG />
+        <ChevronSVG fill={Colors.light.darkGray} />
       </TouchableOpacity>
     </Link>
   );

@@ -19,8 +19,9 @@ const ConfirmActionModal: React.FC<Props> = props => {
       transparent
       animationType="slide"
       visible={visible}
+      onRequestClose={onCancel}
     >
-      <View style={styles.container} />
+      <View style={styles.background} onTouchStart={onCancel} />
       <View style={styles.content}>
         <View style={styles.header}>
           <TouchableOpacity onPress={onCancel} hitSlop={styles.hitSlop}>

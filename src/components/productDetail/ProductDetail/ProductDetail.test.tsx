@@ -10,8 +10,8 @@ describe("ProductDetail", () => {
       name: "Product 1",
       description: "Description 1",
       logo: "https://picsum.photos/200",
-      date_release: "2021-01-01",
-      date_revision: "2021-01-01"
+      date_release: new Date(),
+      date_revision: new Date()
     };
     render(<ProductDetail product={product} />);
   });

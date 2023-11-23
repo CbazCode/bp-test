@@ -1,5 +1,6 @@
 import { router } from "expo-router";
 
+import styles from "./DeleteActionModal.styles";
 import { DeleteActionModalProps as Props } from "./DeleteActionModal.types";
 import ConfirmActionModal from "components/global/ConfirmActionModal/ConfirmActionModal";
 import { useDeleteFinancialProduct } from "services";
@@ -23,6 +24,7 @@ const DeleteActionModal: React.FC<Props> = props => {
   const onCancel = () => setShowModal(false);
   return (
     <ConfirmActionModal
+      style={styles.container}
       visible={showModal}
       title={`de eliminar el producto ${name}?`}
       onConfirm={onDelete}

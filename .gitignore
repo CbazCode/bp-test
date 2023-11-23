@@ -6,6 +6,8 @@ node_modules/
 # snapshot testing
 __snapshots__/
 
+# coverage
+coverage/
 
 # Expo
 .expo/
