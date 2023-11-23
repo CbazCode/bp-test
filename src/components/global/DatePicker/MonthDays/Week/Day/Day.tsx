@@ -11,7 +11,7 @@ const Day: React.FC<Props> = props => {
   const selectedMonthNumber = selectedDate.get("month");
   const dateMonthNumber = date.get("month");
   const selectedDateFormatted = formatDate(selectedDate.toDate());
-  const dateFormatted = formatDate(selectedDate.toDate());
+  const dateFormatted = formatDate(date.toDate());
   const hideExtraDaysStyle = hideExtraDays ? styles.hideExtraDays : {};
   const isSameMonth = selectedMonthNumber === dateMonthNumber;
   const activeDateStyle = isSameMonth ? styles.activeDate : hideExtraDaysStyle;

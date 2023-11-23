@@ -29,7 +29,10 @@ const styles = StyleSheet.create({
     fontWeight: "500"
   },
   value: {
-    fontSize: 14
+    fontSize: 14,
+    flex: 1,
+    textAlign: "right",
+    paddingLeft: 12
   },
   image: {
     width: 140,

@@ -19,7 +19,7 @@ const ProductDetailScreen: React.FC<Props> = () => {
   if (!product) return null;
 
   return (
-    <ScreenTemplate style={styles.container}>
+    <ScreenTemplate scrollable style={styles.container}>
       <ProductDetail product={product} />
       <ProductDetailActionButtons
         product={product}
