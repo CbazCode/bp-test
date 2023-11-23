@@ -1,33 +1,44 @@
 import { router } from "expo-router";
 import { useFormContext } from "react-hook-form";
 
+import { getEditPayload } from "./EditActionButtons.helpers";
 import styles from "./EditActionButtons.styles";
 import { EditActionButtonsProps as Props } from "./EditActionButtons.types";
 import ActionButtons from "components/global/ActionButtons/ActionButtons";
 import Error from "components/global/Error/Error";
+import { toast } from "components/global/Toast/Toast.helpers";
+import { CONSTANTS } from "config/constants";
 import { usePutFinancialProduct } from "services";
-import { Product } from "types/products.types";
+import { ProductFormSchema } from "types/forms.types";
 
-const EditActionButtons: React.FC<Props> = () => {
-  const { handleSubmit, resetField, formState } = useFormContext<Product>();
+const { APP } = CONSTANTS;
+const { ERROR_MESSAGE } = APP;
+
+const message = "Producto actualizado correctamente";
+
+const EditActionButtons: React.FC<Props> = props => {
+  const { resetDatePickers } = props;
+  const formContext = useFormContext<ProductFormSchema>();
+  const { handleSubmit, resetField, formState } = formContext;
   const { isDirty } = formState;
   const putProductHook = usePutFinancialProduct();
   const { back } = router;
   const { mutateAsync: putProduct } = putProductHook;
   const { isError, isPending } = putProductHook;
 
-  const onSubmit = async (product: Product) => {
+  const onSubmit = async (values: ProductFormSchema) => {
     try {
       if (!isDirty) return back();
+      const product = getEditPayload(values);
       await putProduct({ product });
+      toast.success({ message });
       back();
-    } catch (error) {
-      // TODO: ADD TOAST
-      console.error(error);
+    } catch (e) {
+      toast.danger({ message: e.message ?? ERROR_MESSAGE });
     }
   };
   const onUpdateProduct = async () => handleSubmit(onSubmit)();
-  const resetInput = (name: keyof Product) => {
+  const resetInput = (name: keyof ProductFormSchema) => {
     resetField(name, { defaultValue: "" });
   };
   const onResetForm = () => {
@@ -36,13 +47,12 @@ const EditActionButtons: React.FC<Props> = () => {
     resetInput("logo");
     resetInput("date_release");
     resetInput("date_revision");
+    resetDatePickers();
   };
 
   return (
     <>
-      {isError ? (
-        <Error message="Ocurrió un error, vuelve a intentarlo" />
-      ) : null}
+      {isError ? <Error message={ERROR_MESSAGE} /> : null}
       <ActionButtons
         textAbove="Actualizar"
         textBelow="Reiniciar"

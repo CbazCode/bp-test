@@ -12,7 +12,11 @@ export default {
     darkGray: "#9e9e9c",
     danger: "#ff0000",
     black: "#000",
-    white: "#fff"
+    white: "#fff",
+    error: "#ff0000",
+    warning: "#ffc107",
+    info: "#17a2b8",
+    success: "#28a745"
   },
   dark: {
     text: "#fff",
@@ -24,6 +28,10 @@ export default {
     darkGray: "#9e9e9c",
     danger: "#ff0000",
     black: "#000",
-    white: "#fff"
+    white: "#fff",
+    error: "#ff0000",
+    warning: "#ffc107",
+    info: "#17a2b8",
+    success: "#28a745"
   }
 };

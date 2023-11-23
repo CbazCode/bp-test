@@ -1,46 +1,49 @@
-import dayjs from "dayjs";
 import { z } from "zod";
 
-const currentDate = dayjs().startOf("day").toDate();
+import { maxMessage, minMessage } from "./forms.messages.utils";
+import { requiredMessage, validDateMessage } from "./forms.messages.utils";
+import { today } from "./forms.messages.utils";
 
 export const validation = {
   id: z
-    .string({
-      required_error: "Este campo es requerido"
-    })
-    .min(3, { message: "Debe tener por lo menos 3 caracteres" })
-    .max(10, { message: "Debe tener como máximo 10 caracteres" }),
+    .string({ required_error: requiredMessage })
+    .min(3, { message: minMessage(3) })
+    .max(10, { message: maxMessage(10) }),
   name: z
-    .string({
-      required_error: "Este campo es requerido"
-    })
-    .min(5, {
-      message: "Debe tener por lo menos 5 caracteres"
-    })
-    .max(100, {
-      message: "Debe tener como máximo 100 caracteres"
-    }),
+    .string({ required_error: requiredMessage })
+    .min(5, { message: minMessage(5) })
+    .max(100, { message: maxMessage(100) }),
   description: z
-    .string({
-      required_error: "Este campo es requerido"
-    })
-    .min(10, {
-      message: "Debe tener por lo menos 10 caracteres"
-    })
-    .max(200, {
-      message: "Debe tener como máximo 200 caracteres"
-    }),
-  logo: z
-    .string({ required_error: "Este campo es requerido" })
-    .url({ message: "Debe ser una URL válida" }),
+    .string({ required_error: requiredMessage })
+    .min(10, { message: minMessage(10) })
+    .max(200, { message: maxMessage(200) }),
+  logo: z.string({ required_error: requiredMessage }).min(1, {
+    message: requiredMessage
+  }),
   date_release: z
-    .date({
-      required_error: "Este campo es requerido"
+    .string({
+      required_error: requiredMessage,
+      invalid_type_error: validDateMessage
     })
-    .min(currentDate, {
-      message: "Debe ser mayor a la fecha actual"
-    }),
-  date_revision: z.date({
-    required_error: "Este campo es requerido"
-  })
+    .pipe(
+      z.coerce
+        .date({
+          required_error: requiredMessage,
+          invalid_type_error: validDateMessage
+        })
+        .min(today, {
+          message: "Debe ser mayor a la fecha actual"
+        })
+    ),
+  date_revision: z
+    .string({
+      required_error: requiredMessage,
+      invalid_type_error: validDateMessage
+    })
+    .pipe(
+      z.coerce.date({
+        required_error: requiredMessage,
+        invalid_type_error: validDateMessage
+      })
+    )
 };

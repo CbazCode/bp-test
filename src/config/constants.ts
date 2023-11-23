@@ -38,6 +38,8 @@ export const CONSTANTS = {
       ],
       ENGLISH_DAYS: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       SPANISH_DAYS: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"]
-    }
+    },
+    SHOW_TOAST_MESSAGE: "SHOW_TOAST_MESSAGE",
+    ERROR_MESSAGE: "Ocurrió un error, vuelve a intentarlo"
   }
 };

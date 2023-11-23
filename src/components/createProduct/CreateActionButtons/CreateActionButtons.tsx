@@ -3,16 +3,25 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
+import { getCreatePayload } from "./CreateActionButtons.helpers";
 import styles from "./CreateActionButtons.styles";
 import { CreateActionButtonsProps as Props } from "./CreateActionButtons.types";
 import ActionButtons from "components/global/ActionButtons/ActionButtons";
 import ErrorComponent from "components/global/Error/Error";
+import { toast } from "components/global/Toast/Toast.helpers";
+import { CONSTANTS } from "config/constants";
 import { verifyFinancialProductId } from "services";
 import { usePostFinancialProduct } from "services";
-import { Product } from "types/products.types";
+import { ProductFormSchema } from "types/forms.types";
 
-const CreateActionButtons: React.FC<Props> = () => {
-  const { handleSubmit, reset, setError } = useFormContext<Product>();
+const { APP } = CONSTANTS;
+const { ERROR_MESSAGE } = APP;
+
+const message = "Producto creado correctamente";
+
+const CreateActionButtons: React.FC<Props> = props => {
+  const { resetDatePickers } = props;
+  const { handleSubmit, reset, setError } = useFormContext<ProductFormSchema>();
   const client = useQueryClient();
   const postProductHook = usePostFinancialProduct();
   const [isValidating, setIsValidating] = useState(false);
@@ -38,26 +47,31 @@ const CreateActionButtons: React.FC<Props> = () => {
     }
   };
 
-  const onResetForm = () => reset();
-  const onSubmit = async (product: Product) => {
+  const onResetForm = () => {
+    reset();
+    resetDatePickers();
+  };
+
+  const onSubmit = async (values: ProductFormSchema) => {
     try {
-      const { id } = product;
+      const { id } = values;
       const exists = await verifyProductId(id);
       if (exists) return;
+      const product = getCreatePayload(values);
       await postProduct({ product });
+      toast.success({
+        message
+      });
       back();
-    } catch (error) {
-      // TODO: ADD TOAST
-      console.error(error);
+    } catch (e) {
+      toast.danger({ message: e.message ?? ERROR_MESSAGE });
     }
   };
   const onCreateProduct = async () => handleSubmit(onSubmit)();
 
   return (
     <>
-      {isError ? (
-        <ErrorComponent message="Ocurrió un error, vuelve a intentarlo" />
-      ) : null}
+      {isError ? <ErrorComponent message={ERROR_MESSAGE} /> : null}
       <ActionButtons
         textAbove="Enviar"
         textBelow="Reiniciar"

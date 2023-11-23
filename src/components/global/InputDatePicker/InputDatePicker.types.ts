@@ -4,3 +4,7 @@ import { InputProps } from "../Input/Input.types";
 
 // Component Props
 export interface InputDatePickerProps extends InputProps {}
+
+export interface InputDatePickerMethods {
+  reset: () => void;
+}

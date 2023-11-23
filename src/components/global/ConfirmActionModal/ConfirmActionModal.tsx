@@ -5,8 +5,12 @@ import styles from "./ConfirmActionModal.styles";
 import { ConfirmActionModalProps as Props } from "./ConfirmActionModal.types";
 import ActionButtons from "../ActionButtons/ActionButtons";
 import Error from "../Error/Error";
+import { CONSTANTS } from "config/constants";
 
 import XSVG from "assets/icons/x.svg";
+
+const { APP } = CONSTANTS;
+const { ERROR_MESSAGE } = APP;
 
 const ConfirmActionModal: React.FC<Props> = props => {
   const { onConfirm, onCancel, title = "?", visible = false } = props;
@@ -32,9 +36,7 @@ const ConfirmActionModal: React.FC<Props> = props => {
           <View style={styles.textContainer}>
             <Text style={styles.text}>{`¿Estás seguro ${title}`}</Text>
           </View>
-          {isError ? (
-            <Error message="Ocurrió un error, vuelve a intentarlo" />
-          ) : null}
+          {isError ? <Error message={ERROR_MESSAGE} /> : null}
           <ActionButtons
             style={styles.buttonsContainer}
             textAbove="Confirmar"

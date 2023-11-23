@@ -9,6 +9,7 @@ import { useColorScheme } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import Header from "components/global/Header/Header";
+import Toast from "components/global/Toast/Toast";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -42,6 +43,7 @@ function RootLayoutNav() {
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <SafeAreaProvider>
         <QueryClientProvider client={queryClient}>
+          <Toast />
           <Stack>
             <Stack.Screen name="index" options={{ header: () => <Header /> }} />
             <Stack.Screen

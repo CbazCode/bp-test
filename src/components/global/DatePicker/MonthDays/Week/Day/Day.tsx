@@ -4,13 +4,14 @@ import { View, Text, TouchableOpacity } from "react-native";
 
 import styles from "./Day.styles";
 import { DayProps as Props } from "./Day.types";
+import { formatDate } from "utils/date.utils";
 
 const Day: React.FC<Props> = props => {
   const { date, selectedDate, hideExtraDays, setSelectedDate } = props;
   const selectedMonthNumber = selectedDate.get("month");
   const dateMonthNumber = date.get("month");
-  const selectedDateFormatted = selectedDate.format("DD MM YYYY");
-  const dateFormatted = date.format("DD MM YYYY");
+  const selectedDateFormatted = formatDate(selectedDate.toDate());
+  const dateFormatted = formatDate(selectedDate.toDate());
   const hideExtraDaysStyle = hideExtraDays ? styles.hideExtraDays : {};
   const isSameMonth = selectedMonthNumber === dateMonthNumber;
   const activeDateStyle = isSameMonth ? styles.activeDate : hideExtraDaysStyle;

@@ -12,5 +12,5 @@ export interface InputProps extends TextInputProps {
 }
 
 export interface InputMethods {
-  onChange: (value: Date) => void;
+  onChange: (value: string) => void;
 }

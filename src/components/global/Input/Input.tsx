@@ -13,7 +13,7 @@ const Input = forwardRef<InputMethods, Props>((props, ref) => {
   const { onChange } = field;
 
   useImperativeHandle(ref, () => ({
-    onChange: (value: Date) => {
+    onChange: (value: string) => {
       field?.onChange(value);
     }
   }));

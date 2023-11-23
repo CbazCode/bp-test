@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
 import { View, Text } from "react-native";
 
 import styles from "./ProductDetail.styles";
 import { ProductDetailProps as Props } from "./ProductDetail.types";
 import Image from "components/global/Image/Image";
+import { formatDate } from "utils/date.utils";
 
 const ProductDetail: React.FC<Props> = props => {
   const { product } = props;
@@ -29,15 +29,11 @@ const ProductDetail: React.FC<Props> = props => {
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Fecha de liberación</Text>
-          <Text style={styles.value}>
-            {dayjs(date_release).format("DD-MM-YYYY")}
-          </Text>
+          <Text style={styles.value}>{formatDate(date_release)}</Text>
         </View>
         <View style={styles.row}>
           <Text style={styles.label}>Fecha de revisión</Text>
-          <Text style={styles.value}>
-            {dayjs(date_revision).format("DD-MM-YYYY")}
-          </Text>
+          <Text style={styles.value}>{formatDate(date_revision)}</Text>
         </View>
       </View>
     </View>

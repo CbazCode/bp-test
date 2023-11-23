@@ -6,11 +6,11 @@ import { render } from "test/setupFilesAfterEnv";
 
 describe("CreateActionButtons", () => {
   it("renders with default props", () => {
-    render(<CreateActionButtons />);
+    render(<CreateActionButtons resetDatePickers={() => {}} />);
   });
 
   it("should be render two buttons", () => {
-    render(<CreateActionButtons />);
+    render(<CreateActionButtons resetDatePickers={() => {}} />);
     const button = screen.getAllByTestId("action-button");
     expect(button.length).toBe(2);
   });

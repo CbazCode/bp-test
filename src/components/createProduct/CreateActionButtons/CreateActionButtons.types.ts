@@ -1,4 +1,6 @@
 // Interfaces and types from component CreateActionButtons
 
 // Component Props
-export interface CreateActionButtonsProps {}
+export interface CreateActionButtonsProps {
+  resetDatePickers: () => void;
+}
