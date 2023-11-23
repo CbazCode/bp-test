@@ -2,29 +2,32 @@ import { UseQueryOptions } from "@tanstack/react-query";
 
 import { Product, PutProduct } from "types/products.types";
 
-export interface GetProductsConfig {
+export interface CommonConfig {
+  overridesHeaders?: Record<string, string>;
+}
+export interface GetProductsConfig extends CommonConfig {
   signal?: AbortSignal;
 }
-export interface GetProductConfig {
+export interface GetProductConfig extends CommonConfig {
   id: Product["id"];
   signal?: AbortSignal;
 }
 
-export interface PostProductConfig {
+export interface PostProductConfig extends CommonConfig {
   product: Product;
   signal?: AbortSignal;
 }
 
-export interface PutProductConfig {
+export interface PutProductConfig extends CommonConfig {
   product: PutProduct;
   signal?: AbortSignal;
 }
 
-export interface DeleteProductConfig {
+export interface DeleteProductConfig extends CommonConfig {
   id: Product["id"];
 }
 
-export interface VerifyProductConfig {
+export interface VerifyProductConfig extends CommonConfig {
   id: string;
   signal?: AbortSignal;
 }

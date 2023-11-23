@@ -22,7 +22,8 @@ jest.mock("react-hook-form", () => ({
       errors: {}
     },
     register: jest.fn,
-    watch: jest.fn
+    watch: jest.fn,
+    handleSubmit: jest.fn
   }),
   useController: () => ({
     field: {

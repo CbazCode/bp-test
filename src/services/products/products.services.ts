@@ -17,8 +17,8 @@ export const getFinancialProducts = async (
   config: GetProductsConfig
 ): Promise<Product[]> => {
   try {
-    const { signal } = config;
-    const headers = buildHeaders();
+    const { signal, overridesHeaders } = config;
+    const headers = buildHeaders(overridesHeaders);
     const response = await fetch(url, { headers, signal });
     if (!response.ok) throw new Error(response.statusText);
     const data = await response.json();
@@ -32,9 +32,9 @@ export const postFinancialProduct = async (
   config: PostProductConfig
 ): Promise<Product> => {
   try {
-    const { product } = config;
+    const { product, overridesHeaders } = config;
     verifyProductSchema(product);
-    const headers = buildHeaders();
+    const headers = buildHeaders(overridesHeaders);
     const body = JSON.stringify(product);
     const reqConfig = { method: "POST", body, headers };
     const response = await fetch(url, reqConfig);
@@ -50,9 +50,9 @@ export const putFinancialProduct = async (
   config: PutProductConfig
 ): Promise<Product> => {
   try {
-    const { product, signal } = config;
+    const { product, signal, overridesHeaders } = config;
     verifyProductSchema(product);
-    const headers = buildHeaders();
+    const headers = buildHeaders(overridesHeaders);
     const body = JSON.stringify(product);
     const reqConfig = { method: "PUT", body, headers, signal };
     const response = await fetch(url, reqConfig);
@@ -68,14 +68,16 @@ export const deleteFinancialProduct = async (
   config: DeleteProductConfig
 ): Promise<string> => {
   try {
-    const { id } = config;
-    const headers = buildHeaders();
+    const { id, overridesHeaders } = config;
+    const headers = buildHeaders(overridesHeaders);
     const reqUrl = `${url}?id=${id}`;
     const response = await fetch(reqUrl, { method: "DELETE", headers });
-    if (!response.ok) throw new Error(response.statusText);
     if (response.status === 200) return "Product successfully removed";
-    if (response.status === 404) return "Not product found with that id";
-    if (response.status === 400) return "Header authorId is missing";
+    if (response.status === 400) throw new Error("Header authorId is missing");
+    if (response.status === 404) {
+      throw new Error("Not product found with that id");
+    }
+    if (!response.ok) throw new Error(response.statusText);
     throw new Error("Something went wrong");
   } catch (e) {
     throw new Error(e.message);
@@ -86,8 +88,8 @@ export const verifyFinancialProductId = async (
   config: VerifyProductConfig
 ): Promise<boolean> => {
   try {
-    const { id, signal } = config;
-    const headers = buildHeaders();
+    const { id, signal, overridesHeaders } = config;
+    const headers = buildHeaders(overridesHeaders);
     const reqUrl = `${url}/verification?id=${id}`;
     const response = await fetch(reqUrl, { headers, signal });
     if (!response.ok) throw new Error(response.statusText);
